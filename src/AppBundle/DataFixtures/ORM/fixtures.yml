@@ -1,0 +1,7 @@
+AppBundle\Entity\User:
+    user_{1..10}:
+      username: <username()>
+      firstname: <firstName()>
+      lastname: <lastName()>
+      description: <sentence()>
+      isVerified: <boolean(75)>

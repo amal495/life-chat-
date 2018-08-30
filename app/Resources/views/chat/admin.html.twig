@@ -1,0 +1,80 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+{% block stylesheets %}
+    <style>
+        body {font-family: "Lato", sans-serif}
+        .mySlides {display: none}
+
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font: 13px Helvetica, Arial; }
+        form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+        form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+        form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+        #messages { list-style-type: none; margin: 0; padding: 0; }
+        #messages li { padding: 5px 10px; }
+        #messages li:nth-child(odd) { background: #eee; }
+    </style>
+{% endblock %}
+</head>
+
+{% block body %}
+    <body>
+
+<!-- Navbar -->
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav">
+
+            <li><a href="{{ path('chat') }}">CHAT</a></li>
+            {% if is_granted('ROLE_ADMIN') %}
+                <li class="active"><a href="{{ path('admin') }}">ADMIN</a></li>
+            {% endif %}
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+        </ul>
+    </div>
+</nav>
+    <table>
+        <thead>
+            <tr >
+                <td width="20px" align=center><b>ID</b></td>
+                <td width="70px" align=center><b>Users</b></td>
+                <td width="150px"align=center><b>role</b></td>
+                <td align=center><b>Change the role</b></td>
+
+
+            </tr>
+        </thead>
+        <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td width="30px" align=center >{{ user.id }}</td>
+                        <td width="70px" align=center>{{ user.userName}}</td>
+                        <td width="150px"  align=center> {{ user.chatRoleAsText|trans }}</td>
+                        {% if user.chatRoleAsText == 'user' %}
+                            <td>
+                                <a class="btn btn-success" href="{{ path('change', {id : user.id, role : 'administrator'}) }}">promote to administrator</a>
+                            </td>
+                        {% endif %}
+
+                        {% if user.chatRoleAsText == 'administrator' %}
+
+                            <td >
+                                <a class="btn btn-success" href="{{ path('admin', {id : user.id, role : 'user'}) }}">demote to user</a>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

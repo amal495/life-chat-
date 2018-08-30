@@ -1,0 +1,46 @@
+ <html>
+    <head>
+
+    <title>{% block title %} Login {% endblock %} </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+    <script
+            src="https://code.jquery.com/jquery-2.2.4.min.js"
+            integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+            crossorigin="anonymous">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">
+    </script>
+    </head>
+    <body>
+    {% block body %}
+
+    <div class="container" id="chat-main-page">
+        {% block content %}
+
+
+        <div class="jumbotron text-center">
+            <h1>Home Page</h1>
+
+            {% if is_granted('ROLE_USER') %}
+                <a href="{{ path('chat') }}"> {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}</a>
+                <a class="btn btn-success" href="{{path('fos_user_security_logout')}}">Logout</a>
+           {% else %}
+            <a class="btn btn-success" href="{{ path('fos_user_security_login') }}">{{ 'login'|trans }}</a>
+            {% endif %}
+                    <a class="btn btn-warning" href="{{ path('fos_user_registration_register') }}">{{ 'register'|trans }}</a>
+                </div>
+            </div>
+
+
+{% endblock %}
+{% endblock %}
+</body>
+</html>
+
+
+
+
