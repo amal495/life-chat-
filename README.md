@@ -18,4 +18,4 @@ how to start:
 - and finally run php bin/console server:start to start the server and php bin/console chat:socket to start the socket 
 
 - you can change the role of one user you chose to be the admin by running: 
-php bin/console fos:user:promote <username> and then set the role to be ROLE_ADMIN
+php bin/console fos:user:promote "chosen_username" and then set the role to be ROLE_ADMIN
